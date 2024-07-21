@@ -1,0 +1,61 @@
+/* .garage-table {
+    width: 80%;
+  }
+  
+  .odd-row {
+    background-color: #f9f9f9;
+  }
+  
+  .even-row {
+    background-color: #e0e0e0;
+  }
+  
+  .mat-card-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+   */
+
+
+   /* src/app/garages/garage-list/garage-list.component.css */
+.garage-container {
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .garage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .garage-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .garage-table th, .garage-table td {
+    padding: 12px 8px;
+    text-align: left;
+  }
+  
+  .odd-row {
+    background-color: #f9f9f9;
+  }
+  
+  .even-row {
+    background-color: #e0e0e0;
+  }
+
+  .add-new-button {
+    width: 10%;
+  }
+  

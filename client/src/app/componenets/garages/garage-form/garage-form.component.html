@@ -1,0 +1,84 @@
+<div class="garage-form-container">
+  <mat-card>
+    <mat-card-title>{{ isEditMode ? 'עדכון פרטי מוסך' : ' יצירת מוסך חדש' }}</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="garageForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="fill" *ngIf="!isEditMode">
+            <mat-label>מזהה</mat-label>
+            <input matInput formControlName="id" type="number" [disabled]="isEditMode">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>מספר מוסך</mat-label>
+            <input matInput formControlName="mispar_mosah" type="number">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>שם המוסך</mat-label>
+            <input matInput formControlName="shem_mosah">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>קוד סוג מוסך</mat-label>
+            <input matInput formControlName="cod_sug_mosah" type="number">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>סוג מוסך</mat-label>
+            <input matInput formControlName="sug_mosah">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>כתובת</mat-label>
+            <input matInput formControlName="ktovet">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>עיר</mat-label>
+            <input matInput formControlName="yishuv">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>טלפון</mat-label>
+            <input matInput formControlName="telephone">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>מיקוד</mat-label>
+            <input matInput formControlName="mikud" type="number">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>קוד מקצוע</mat-label>
+            <input matInput formControlName="cod_miktzoa" type="number">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>מקצוע</mat-label>
+            <input matInput formControlName="miktzoa">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>מנהל</mat-label>
+            <input matInput formControlName="menahel_miktzoa">
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>רשם חברות</mat-label>
+            <input matInput formControlName="rasham_havarot" type="number">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>תאריך בדיקה</mat-label>
+            <input matInput formControlName="TESTIME" type="string">
+          </mat-form-field>
+        </div>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'עדכון' : 'צור' }}</button>
+          <button mat-raised-button color="accent" routerLink="/garages">ביטול</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
+
+  

@@ -1,0 +1,75 @@
+<!-- 
+<mat-card *ngIf="garage">
+    <mat-card-title>{{ garage.shem_mosah }}</mat-card-title>
+    <mat-card-content>
+      <p><strong>ID:</strong> {{ garage.id }}</p>
+      <p><strong>Number:</strong> {{ garage.mispar_mosah }}</p>
+      <p><strong>Type Code:</strong> {{ garage.cod_sug_mosah }}</p>
+      <p><strong>Type:</strong> {{ garage.sug_mosah }}</p>
+      <p><strong>Address:</strong> {{ garage.ktovet }}</p>
+      <p><strong>City:</strong> {{ garage.yishuv }}</p>
+      <p><strong>Phone:</strong> {{ garage.telephone }}</p>
+      <p><strong>Postal Code:</strong> {{ garage.mikud }}</p>
+      <p><strong>Profession Code:</strong> {{ garage.cod_miktzoa }}</p>
+      <p><strong>Profession:</strong> {{ garage.miktzoa }}</p>
+      <p><strong>Manager:</strong> {{ garage.menahel_miktzoa }}</p>
+      <p><strong>Company Registry:</strong> {{ garage.rasham_havarot }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/garages', garage.id, 'edit']">Edit</button>
+      <button mat-raised-button color="accent" routerLink="/garages">Back</button>
+    </mat-card-actions>
+  </mat-card>
+   -->
+
+   <!-- src/app/garages/garage-details/garage-details.component.html -->
+<div class="garage-details-container">
+  <div class="garage-header">
+    <button mat-raised-button color="primary" routerLink="/garages">חזרה</button>
+    <button mat-raised-button color="primary" [routerLink]="['/garages', garage.id, 'edit']" *ngIf="garage">עדכון</button>
+    <h1>מידע על מוסך</h1>
+  </div>
+  <table class="garage-details-table">
+    <tr>
+      <td>{{ garage?.id }}</td>
+      <th>מזהה</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.shem_mosah }}</td>
+      <th>שם</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.sug_mosah }}</td>
+      <th>קוד</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.ktovet }}, {{ garage?.yishuv }}</td>
+      <th>כתובת</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.mikud }}</td>
+      <th>מיקוד</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.telephone }}</td>
+      <th>טלפון</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.miktzoa }}</td>
+      <th>מקצוע</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.cod_miktzoa }}</td>
+      <th>קוד מקצוע</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.menahel_miktzoa }}</td>
+      <th>מנהל</th>
+    </tr>
+    <tr>
+      <td>{{ garage?.rasham_havarot }}</td>
+      <th>רשם חברות</th>
+    </tr>
+    <!-- Add more fields as necessary -->
+  </table>
+</div>

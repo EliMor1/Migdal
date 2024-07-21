@@ -1,0 +1,42 @@
+/* src/app/garages/garage-details/garage-details.component.css */
+.garage-details-container {
+    padding: 80px;
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  .garage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    margin-bottom: 5px;
+  }
+  
+  .garage-details-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .garage-details-table th, .garage-details-table td {
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .garage-details-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .garage-details-table tr:nth-child(odd) {
+    background-color: #e0e0e0;
+  }
+  
+  .garage-details-table th {
+    width: 350px;
+  }
+  button {
+    margin-top: 2%;
+    width: 25%;
+  }
+  
