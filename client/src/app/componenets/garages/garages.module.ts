@@ -11,18 +11,24 @@ import { RouterModule } from '@angular/router';
 import { GarageListComponent } from './garage-list/garage-list.component';
 import { GarageDetailComponent } from './garage-detail/garage-detail.component';
 import { GarageFormComponent } from './garage-form/garage-form.component';
+import { MultiSelectComponent } from './multi-select/multi-select.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
     GarageListComponent,
     GarageDetailComponent,
-    GarageFormComponent
+    GarageFormComponent,
+    MultiSelectComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
     MatCardModule,
     MatTableModule,
     RouterModule,

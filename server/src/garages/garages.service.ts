@@ -5,10 +5,20 @@ import { GaragesDAL } from './DAL/garages.dal';
 import { Garage } from './models/garages.schema';
 import axios from 'axios';
 import { IGarage } from 'src/common/interfaces/Garage.interface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GaragesService {
-  constructor(private readonly garagesDAL: GaragesDAL) {}
+  
+  private readonly ApiUrl;
+  private readonly limit;
+  private readonly resourceID;
+  constructor(private readonly garagesDAL: GaragesDAL, private configService: ConfigService) {
+
+    this.ApiUrl = this.configService.get<string>('API_URL');
+    this.resourceID = this.configService.get<string>('RESOURCE_ID');
+    this.limit = this.configService.get<string>('LIMIT');
+  }
 
   async create(createGarageDto: CreateGarageDto): Promise<Garage> {
     const newGarage = await this.garagesDAL.create(createGarageDto);
@@ -18,28 +28,31 @@ export class GaragesService {
     return newGarage;
   }
 
-  async createMany(): Promise<string> {
+  async createMany(createGarageDtos: CreateGarageDto[]): Promise<Garage[]> {
     try {
 
-      //remove to env file (url and resource id and limit).
-      const response = await axios.get('https://data.gov.il/api/3/action/datastore_search', {
-        params: {
-          resource_id: 'bb68386a-a331-4bbc-b668-bba2766d517d',
-          limit: 50,
-        },
-      });
-
-      const garages = response.data.result.records.map((record: IGarage) => {
-        const { _id, ...garageData } = record;
-        return { ...garageData, id: _id };
-      });
-      const createdGarages = await this.garagesDAL.createMany(garages);
-
+      const createdGarages = await this.garagesDAL.createMany(createGarageDtos);
       if (!createdGarages) {
         throw new InternalServerErrorException("Couldn't create the garages.");
       }
+      return createdGarages;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 
-      return 'Garages created successfully.';
+  async fetchFromApi(): Promise<IGarage[]> {
+    try {
+      const response = await axios.get(this.ApiUrl, {
+        params: {
+          resource_id: this.resourceID,
+          limit: this.limit,
+        },
+      });
+
+      const garages = response.data.result.records;
+
+      return garages;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
@@ -50,17 +63,14 @@ export class GaragesService {
       if(!garagesData){
         throw new NotFoundException("Coudn't get the garages list.");
       }
-      //need to remove _id field.
       return garagesData;
   }
 
   async findOne(id: number): Promise<Garage> {
-    //need to remove _id field.
     const garagesData = await this.garagesDAL.findOne(id);
       if(!garagesData){
         throw new NotFoundException("Coudn't get the specified garage.");
       }
-      delete garagesData["_id"];
       return garagesData;
   }
 

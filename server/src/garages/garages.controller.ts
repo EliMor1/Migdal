@@ -64,9 +64,19 @@ export class GaragesController {
 
   @Post('createMany')
   @HttpCode(HttpStatus.CREATED)
-  async createMany() {
+  async createMany(@Body() createGarageDtos: CreateGarageDto[]) {
     try {
-      return this.garagesService.createMany();
+      return this.garagesService.createMany(createGarageDtos);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Post('fetch/fromExternalApi')
+  @HttpCode(HttpStatus.OK)
+  async fetchFromApi() {
+    try {
+      return this.garagesService.fetchFromApi();
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

@@ -1,28 +1,3 @@
-<!-- 
-<mat-card *ngIf="garage">
-    <mat-card-title>{{ garage.shem_mosah }}</mat-card-title>
-    <mat-card-content>
-      <p><strong>ID:</strong> {{ garage.id }}</p>
-      <p><strong>Number:</strong> {{ garage.mispar_mosah }}</p>
-      <p><strong>Type Code:</strong> {{ garage.cod_sug_mosah }}</p>
-      <p><strong>Type:</strong> {{ garage.sug_mosah }}</p>
-      <p><strong>Address:</strong> {{ garage.ktovet }}</p>
-      <p><strong>City:</strong> {{ garage.yishuv }}</p>
-      <p><strong>Phone:</strong> {{ garage.telephone }}</p>
-      <p><strong>Postal Code:</strong> {{ garage.mikud }}</p>
-      <p><strong>Profession Code:</strong> {{ garage.cod_miktzoa }}</p>
-      <p><strong>Profession:</strong> {{ garage.miktzoa }}</p>
-      <p><strong>Manager:</strong> {{ garage.menahel_miktzoa }}</p>
-      <p><strong>Company Registry:</strong> {{ garage.rasham_havarot }}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" [routerLink]="['/garages', garage.id, 'edit']">Edit</button>
-      <button mat-raised-button color="accent" routerLink="/garages">Back</button>
-    </mat-card-actions>
-  </mat-card>
-   -->
-
-   <!-- src/app/garages/garage-details/garage-details.component.html -->
 <div class="garage-details-container">
   <div class="garage-header">
     <button mat-raised-button color="primary" routerLink="/garages">חזרה</button>
@@ -70,6 +45,9 @@
       <td>{{ garage?.rasham_havarot }}</td>
       <th>רשם חברות</th>
     </tr>
-    <!-- Add more fields as necessary -->
+    <tr>
+      <td>{{ garage?.TESTIME }}</td>
+      <th>תאריך בדיקה</th>
+    </tr>
   </table>
 </div>

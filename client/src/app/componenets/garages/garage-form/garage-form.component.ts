@@ -7,6 +7,7 @@ import { GarageService } from '../garage.service';
 import { IGarage } from '../../../interfaces/garage.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { I18N } from '../../../common/i18n/General';
 
 @Component({
   selector: 'app-garage-form',
@@ -27,21 +28,21 @@ export class GarageFormComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar
   ) {
     this.garageForm = this.fb.group({
-      id: [{ value: null, disabled: this.isEditMode }, Validators.required],
-      mispar_mosah: [null, Validators.required],
-      shem_mosah: ['', Validators.required],
-      cod_sug_mosah: [null, Validators.required],
+      id: [{ value: null, disabled: this.isEditMode }, [Validators.required, Validators.min(1)]],
+      mispar_mosah: [null, [Validators.required, Validators.min(1), Validators.max(999999999)]],
+      shem_mosah: ['', [Validators.required, Validators.maxLength(100)]],
+      cod_sug_mosah: [null, [Validators.required, Validators.min(1)]],
       sug_mosah: ['', Validators.required],
-      ktovet: ['', Validators.required],
+      ktovet: ['', [Validators.required, Validators.maxLength(255)]],
       yishuv: ['', Validators.required],
-      telephone: ['', Validators.required],
-      mikud: [null, Validators.required],
-      cod_miktzoa: [null, Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern(/^\d{3}-?\d{7}$/)]],
+      mikud: [null, [Validators.required, Validators.min(10000)]],
+      cod_miktzoa: [null, [Validators.required, Validators.min(1), Validators.max(999999999)]],
       miktzoa: ['', Validators.required],
       menahel_miktzoa: ['', Validators.required],
-      rasham_havarot: [null, Validators.required],
-      TESTIME:['']
-    });
+      rasham_havarot: [null, [Validators.required, Validators.min(1)]],
+      TESTIME: ['']
+    })
   }
 
   ngOnInit() {
@@ -71,30 +72,16 @@ export class GarageFormComponent implements OnInit, OnDestroy {
         panelClass:['snackbar-custom']
       };
 
-      
-      // if (this.isEditMode) {
-      //   this.garageService.updateGarage(garage.id, garage)
-      //     .pipe(takeUntil(this.destroy$))
-      //     .subscribe(() => {
-      //       this.router.navigate(['/garages']);
-      //     });
-      // } else {
-      //   this.garageService.createGarage(garage)
-      //     .pipe(takeUntil(this.destroy$))
-      //     .subscribe(() => {
-      //       this.router.navigate(['/garages']);
-      //     });
-      // }
       if (this.isEditMode) {
         this.garageService.updateGarage(garage.id, garage)
           .pipe(takeUntil(this.destroy$))
           .subscribe(
             () => {
-              this.snackBar.open('מוסך עודכן בהצלחה!', 'Close', config);
+              this.snackBar.open(I18N.GarageUpdateSuccess, 'Close', config);
               this.router.navigate(['/garages']);
             },
             error => {
-              this.snackBar.open('כשל בעדכון מוסך.', 'Close', config);
+              this.snackBar.open(I18N.GarageUpdateFailure, 'Close', config);
             }
           );
       } else {
@@ -102,11 +89,11 @@ export class GarageFormComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.destroy$))
           .subscribe(
             () => {
-              this.snackBar.open('מוסך חדש נוצר בהצלחה!', 'Close', config);
+              this.snackBar.open(I18N.GarageCreateSuccess, 'Close', config);
               this.router.navigate(['/garages']);
             },
             error => {
-              this.snackBar.open('כשל ביצירת מוסך.', 'Close', config);
+              this.snackBar.open(I18N.GarageCreationFailure, 'Close', config);
             }
           );
       }

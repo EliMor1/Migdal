@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -22,13 +20,13 @@ export class GaragesDAL {
     }
   }
 
-  async createMany(garagesData: CreateGarageDto[]): Promise<boolean> {
+  async createMany(garagesData: CreateGarageDto[]): Promise<Garage[]> {
     try {
-      await this.garagesModel.insertMany(garagesData);
-      return true;
+      const createdGarages = await this.garagesModel.insertMany(garagesData);
+      return createdGarages;
     } catch (error) {
       console.error(error);
-      return false;
+      return null;
     }
   }
 
@@ -36,7 +34,12 @@ export class GaragesDAL {
     try{
       const garagesData = await this.garagesModel.find().exec();
       if(garagesData){
-        return garagesData;
+        const cleanedData = garagesData.map(garage => {
+          const garageObject = garage.toObject();
+          delete garageObject._id;
+          return garageObject;
+        });
+        return cleanedData
       }
       return null;
     }
@@ -50,7 +53,9 @@ export class GaragesDAL {
     try{
       const garagesData = await this.garagesModel.findOne({ 'id': id }).exec();
       if(!garagesData) return null;
-      return garagesData
+      const garageObject = garagesData.toObject();
+      delete garageObject._id;
+      return garageObject
     }
     catch(error){
       console.error(error);

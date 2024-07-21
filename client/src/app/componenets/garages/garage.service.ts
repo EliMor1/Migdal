@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { IGarage } from '../../interfaces/garage.interface';
+import { ApiEnum } from '../../common/enums/Api.enum';
+import { ErrorMessages } from '../../common/i18n/ErrorMessages';
+import { GarageStateService } from './garage-state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GarageService {
-  private apiUrl = 'http://localhost:3001/api/garages'; 
+  private apiUrl = ApiEnum.API_ROUTE; 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private garageStateService: GarageStateService) { }
 
   getGarages(): Observable<IGarage[]> {
     return this.http.get<IGarage[]>(this.apiUrl)
@@ -41,21 +44,31 @@ export class GarageService {
   }
 
   createManyGarages(garages: IGarage[]): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/createMany`, garages)
+    return this.http.post<void>(`${this.apiUrl}/${ApiEnum.CREATE_MANY_GARAGES_ROUTE}`, garages)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError),
+        // Update the shared state after successful creation (calling a service for update and communication on demand).
+        tap(() => this.getGarages().subscribe(updatedGarages => {
+          this.garageStateService.updateGarages(updatedGarages);
+        }))
       );
+  }
+
+  fetchFromApi(): Observable<IGarage[]> {
+    return this.http.post<IGarage[]>(`${this.apiUrl}/${ApiEnum.EXTERNAL_API_ROUTE}`, {})
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred.
-      errorMessage = `ארעה שגיאה: ${error.error.message}`;
+      errorMessage = `${ErrorMessages.ErrorOccured}: ${error.error.message}`;
     } else {
       // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      errorMessage = `שגיאת מערכת ${error.status}, גוף השגיאה: ${error.error}`;
+      errorMessage = `${ErrorMessages.SystemError}: ${error.status}`;
     }
     console.error(errorMessage);
     // Return an observable with a user-facing error message

@@ -1,0 +1,12 @@
+<div class="container">
+    <button mat-raised-button color="primary" (click)="addSelectedGarages()">הוספת מוסכים נבחרים</button>
+    <mat-form-field class="mat-form-field" appearance="fill">
+      <mat-label>בחירת מוסכים</mat-label>
+      <mat-select class="mat-select" [formControl]="garagesControl" multiple>
+        <mat-option *ngFor="let garage of garages" [value]="garage">
+          {{ garage.shem_mosah }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  

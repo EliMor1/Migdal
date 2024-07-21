@@ -1,73 +1,80 @@
-
-<!-- <mat-card>
-  <mat-card-title>Garages</mat-card-title>
-  <mat-card-content>
-    <table mat-table [dataSource]="garages" class="mat-elevation-z8 garage-table">
-
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let garage"> {{garage.id}} </td>
-      </ng-container>
-
-     
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let garage"> {{garage.shem_mosah}} </td>
-      </ng-container>
-
-     
-      <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef> Location </th>
-        <td mat-cell *matCellDef="let garage"> {{garage.ktovet}}, {{garage.yishuv}} </td>
-      </ng-container>
-
-     
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let garage">
-          <button mat-button color="accent" (click)="viewGarage(garage.id)">View</button>
-        </td>
-      </ng-container>
-
-     
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-     
-    </table>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" routerLink="/garages/new">Add New Garage</button>
-  </mat-card-actions>
-</mat-card> -->
-
-
-  
-<!-- src/app/garages/garage-list/garage-list.component.html -->
 <div class="garage-container">
   <div class="garage-header">
     <button mat-raised-button color="primary" class="add-new-button" routerLink="/garages/new">הוספה</button>
+    <app-multi-select></app-multi-select>
     <h1>רשימת מוסכים</h1>
   </div>
   <table mat-table [dataSource]="garages" class="mat-elevation-z8 garage-table">
-    <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> מזהה </th>
       <td mat-cell *matCellDef="let garage"> {{garage.id}} </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="mispar_mosah">
+      <th mat-header-cell *matHeaderCellDef> מספר מוסך </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.mispar_mosah}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="shem_mosah">
       <th mat-header-cell *matHeaderCellDef> שם </th>
       <td mat-cell *matCellDef="let garage"> {{garage.shem_mosah}} </td>
     </ng-container>
 
-    <!-- Location Column -->
-    <ng-container matColumnDef="location">
-      <th mat-header-cell *matHeaderCellDef> מיקום </th>
-      <td mat-cell *matCellDef="let garage"> {{garage.ktovet}}, {{garage.yishuv}} </td>
+    <ng-container matColumnDef="cod_sug_mosah">
+      <th mat-header-cell *matHeaderCellDef> קוד סוג מוסך </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.cod_sug_mosah}} </td>
     </ng-container>
 
-    <!-- Actions Column -->
+    <ng-container matColumnDef="sug_mosah">
+      <th mat-header-cell *matHeaderCellDef> סוג מוסך </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.sug_mosah}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ktovet">
+      <th mat-header-cell *matHeaderCellDef> כתובת </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.ktovet}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="yishuv">
+      <th mat-header-cell *matHeaderCellDef> יישוב </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.yishuv}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef> טלפון </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.telephone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mikud">
+      <th mat-header-cell *matHeaderCellDef> מיקוד </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.mikud}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cod_miktzoa">
+      <th mat-header-cell *matHeaderCellDef> קוד מקצוע </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.cod_miktzoa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="miktzoa">
+      <th mat-header-cell *matHeaderCellDef> מקצוע </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.miktzoa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menahel_miktzoa">
+      <th mat-header-cell *matHeaderCellDef> מנהל מקצוע </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.menahel_miktzoa}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rasham_havarot">
+      <th mat-header-cell *matHeaderCellDef> רשם חבורות </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.rasham_havarot}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="TESTIME">
+      <th mat-header-cell *matHeaderCellDef> תאריך בדיקה </th>
+      <td mat-cell *matCellDef="let garage"> {{garage.TESTIME || 'עדיין לא בוצע'}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> פעולות </th>
       <td mat-cell *matCellDef="let garage">
@@ -75,7 +82,6 @@
       </td>
     </ng-container>
 
-    <!-- Header and Row Declarations -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
   </table>
